@@ -3,8 +3,8 @@
 	<name>BookShopEAR</name>
 	<comment></comment>
 	<projects>
-		<project>BookShopWeb</project>
 		<project>BookShopJPA</project>
+		<project>BookShopWeb</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
