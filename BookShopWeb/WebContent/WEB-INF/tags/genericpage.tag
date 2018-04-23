@@ -12,7 +12,31 @@
 </head>
 <body>
 
-	<jsp:doBody />
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+		<div class="container">
+			<a href="#" class="navbar-brand">Book Shop</a>
+			<button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" class="navbar-toggler"></button>
+			<div id="navbarSupportedContent" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a href="#" class="nav-link">Home</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav">
+					<li class="navbar-text mr-3">
+						<span>Username</span>
+					</li>
+					<li class="nav-item">
+						<a href="logout" class="nav-link">Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<main class="container body-content">
+		<jsp:doBody />
+	</main>
 	
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
