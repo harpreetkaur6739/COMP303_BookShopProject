@@ -9,26 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("") // index
-public class BookShopEntryServlet extends HttpServlet{
-
-	/**
-	 * 
-	 */
+public class HomeServlet extends HttpServlet
+{
 	private static final long serialVersionUID = 1L;
-	
-	public BookShopEntryServlet() {
-		super();
-	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		doPost(request,response);
+		getServletContext().getRequestDispatcher("/jsp/Home.jsp").forward(request, response);
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		getServletContext().getRequestDispatcher("/jsp/Index.jsp").forward(request, response);
-	}
-	
-
 }

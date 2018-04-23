@@ -3,6 +3,9 @@
 	<persistence-unit name="BookShopJPA" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<non-jta-data-source>java:/comp303project_ds</non-jta-data-source>
+		<class>com.bookshopjpa.model.Author</class>
+		<class>com.bookshopjpa.model.Genre</class>
+		<class>com.bookshopjpa.model.Book</class>
 		<!--  Add Classes here -->
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
