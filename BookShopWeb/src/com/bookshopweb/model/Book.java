@@ -1,4 +1,4 @@
-package com.bookshopjpa.model;
+package com.bookshopweb.model;
 
 import java.io.Serializable;
 import java.lang.Integer;
@@ -13,6 +13,7 @@ import javax.persistence.*;
  *
  */
 @Entity
+@Table(name="books", schema="comp303project")
 
 public class Book implements Serializable
 {
@@ -23,10 +24,10 @@ public class Book implements Serializable
 	private Integer rating;
 	private Set<Author> authors;
 	private Set<Genre> genres;
-	private static final long serialVersionUID = 1L;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "BookAuthors",
+
+	@Access(AccessType.PROPERTY)
+	@ManyToMany
+	@JoinTable(name = "bookauthors",
 		joinColumns = { @JoinColumn(name = "bookId") },
 		inverseJoinColumns = { @JoinColumn(name = "authorId") })
 	public Set<Author> getAuthors()
@@ -34,15 +35,27 @@ public class Book implements Serializable
 		return this.authors;
 	}
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "BookGenres",
+	public void setAuthors(Set<Author> authors)
+	{
+		this.authors = authors;
+	}
+	
+	@ManyToMany
+	@JoinTable(name = "bookgenres",
 		joinColumns = { @JoinColumn(name = "bookId") },
 		inverseJoinColumns = { @JoinColumn(name = "genreId") })
 	public Set<Genre> getGenres()
 	{
 		return this.genres;
 	}
-
+	
+	public void setGenres(Set<Genre> genres)
+	{
+		this.genres = genres;
+	}
+	
+	private static final long serialVersionUID = 1L;
+	
 	public Book()
 	{
 		super();

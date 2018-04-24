@@ -7,8 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.bookshopjpa.dao.AuthorDAO;
-import com.bookshopjpa.model.Author;
+
+import com.bookshopweb.dao.AuthorDAO;
+import com.bookshopweb.model.Author;
 
 @WebServlet("/authors")
 public class AuthorsListServlet extends HttpServlet
@@ -17,7 +18,8 @@ public class AuthorsListServlet extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		List<Author> authors = AuthorDAO.getAuthors();
+		List<Author> authors = AuthorDAO.list();
+		request.setAttribute("authors", authors);
 		getServletContext().getRequestDispatcher("/jsp/AuthorsList.jsp").forward(request, response);
 	}
 }

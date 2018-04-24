@@ -1,4 +1,4 @@
-package com.bookshopjpa.model;
+package com.bookshopweb.model;
 
 import java.io.Serializable;
 import java.lang.Integer;
@@ -12,6 +12,7 @@ import javax.persistence.*;
  *
  */
 @Entity
+@Table(name="authors", schema="comp303project")
 @NamedQueries({	
 	@NamedQuery(name="Author.All",
 		query="SELECT a FROM Author a"),
@@ -24,13 +25,19 @@ public class Author implements Serializable
 	private Set<Book> books;
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "BookAuthors",
+	@Access(AccessType.PROPERTY)
+	@ManyToMany
+	@JoinTable(name = "bookauthors",
 		joinColumns = { @JoinColumn(name = "authorId") },
 		inverseJoinColumns = { @JoinColumn(name = "bookId") })
 	public Set<Book> getBooks()
 	{
 		return this.books;
+	}
+	
+	public void setBooks(Set<Book> books)
+	{
+		this.books = books;
 	}
 
 	public Author()

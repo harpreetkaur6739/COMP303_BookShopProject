@@ -1,9 +1,10 @@
-package com.bookshopjpa.dao;
+package com.bookshopweb.dao;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
 public class Connection
 {
@@ -26,5 +27,13 @@ public class Connection
 	public static synchronized EntityManager getEntityManager()
 	{
 		return emf.createEntityManager();
+	}
+	
+	public static EntityTransaction beginTransaction()
+	{
+		EntityManager em = getEntityManager();
+		EntityTransaction et = em.getTransaction();
+		et.begin();
+		return et;
 	}
 }

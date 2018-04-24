@@ -1,4 +1,4 @@
-package com.bookshopjpa.model;
+package com.bookshopweb.model;
 
 import java.io.Serializable;
 import java.lang.Integer;
@@ -12,6 +12,7 @@ import javax.persistence.*;
  *
  */
 @Entity
+@Table(name="genres", schema="comp303project")
 
 public class Genre implements Serializable
 {
@@ -20,13 +21,19 @@ public class Genre implements Serializable
 	private Set<Book> books;
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "BookGenres",
+	@Access(AccessType.PROPERTY)
+	@ManyToMany
+	@JoinTable(name = "bookgenres",
 		joinColumns = { @JoinColumn(name = "genreId") },
 		inverseJoinColumns = { @JoinColumn(name = "bookId") })
 	public Set<Book> getBooks()
 	{
 		return this.books;
+	}
+	
+	public void setBooks(Set<Book> books)
+	{
+		this.books = books;
 	}
 
 	public Genre()
