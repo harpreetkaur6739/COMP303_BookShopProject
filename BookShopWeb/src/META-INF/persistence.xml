@@ -6,6 +6,7 @@
 		<class>com.bookshopweb.model.Author</class>
 		<class>com.bookshopweb.model.Genre</class>
 		<class>com.bookshopweb.model.Book</class>
+		<class>com.bookshopweb.model.Inventory</class>
 		<!--  Add Classes here -->
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

@@ -14,6 +14,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="books", schema="comp303project")
+@NamedQueries({	
+	@NamedQuery(name="Books.All",
+		query="SELECT b FROM Book b"),
+})
 
 public class Book implements Serializable
 {
@@ -24,6 +28,10 @@ public class Book implements Serializable
 	private Integer rating;
 	private Set<Author> authors;
 	private Set<Genre> genres;
+	
+	@OneToOne(mappedBy = "book", cascade = CascadeType.ALL, 
+            fetch = FetchType.LAZY, optional = false)
+	private Inventory inventory;
 
 	@Access(AccessType.PROPERTY)
 	@ManyToMany
