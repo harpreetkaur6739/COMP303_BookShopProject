@@ -8,22 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bookshopweb.dao.*;
-import com.bookshopweb.model.Author;
+import com.bookshopweb.model.Genre;
 
-@WebServlet("/authors")
-public class AuthorsListServlet extends HttpServlet
+@WebServlet("/genres")
+public class GenresListServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		List<Author> authors = null;
+		List<Genre> genres = null;
 		try (Database db = new Database())
 		{
-			authors = db.getAuthors().list();
+			genres = db.getGenres().list();
 		} catch (Exception e) { }
 		
-		request.setAttribute("authors", authors);
-		getServletContext().getRequestDispatcher("/jsp/AuthorsList.jsp").forward(request, response);
+		request.setAttribute("genres", genres);
+		getServletContext().getRequestDispatcher("/jsp/GenresList.jsp").forward(request, response);
 	}
 }

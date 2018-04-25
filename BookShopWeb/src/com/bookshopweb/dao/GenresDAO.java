@@ -4,48 +4,47 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-
-import com.bookshopweb.model.Author;
+import com.bookshopweb.model.Genre;
 import com.sun.mail.iap.ConnectionException;
 
-public class AuthorDAO
+public class GenresDAO
 {
 	private Database db;
 	
-	public AuthorDAO(Database db)
+	public GenresDAO(Database db)
 	{
 		this.db = db;
 	}
 	
-	public List<Author> list()
+	public List<Genre> list()
 	{
 		EntityManager em = this.db.getEntityManager();
 		
-		Query q = em.createNamedQuery("Author.All");
-		List<Author> list = q.getResultList();
+		Query q = em.createNamedQuery("Genre.All");
+		List<Genre> list = q.getResultList();
 		
 		return list;
 	}
 	
-	public Author read(int authorId)
+	public Genre read(int genreId)
 	{
 		EntityManager em = this.db.getEntityManager();
-		Author author = em.find(Author.class, authorId);
-		return author;
+		Genre genre = em.find(Genre.class, genreId);
+		return genre;
 	}
 	
-	public Author updateOrCreate(Author author)
+	public Genre updateOrCreate(Genre genre)
 	{
 		EntityManager em = this.db.getEntityManager();
-		em.persist(author);
+		em.persist(genre);
 		em.flush();
 		
-		return author;
+		return genre;
 	}
 	
-	public void delete(Author author)
+	public void delete(Genre genre)
 	{
 		EntityManager em = this.db.getEntityManager();
-		em.remove(author);
+		em.remove(genre);
 	}
 }

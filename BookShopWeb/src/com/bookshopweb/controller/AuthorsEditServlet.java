@@ -9,17 +9,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.bookshopweb.dao.*;
 import com.bookshopweb.model.Author;
 
-/**
- * Servlet implementation class AuthorsCreateServlet
- */
-@WebServlet("/authors/create")
-public class AuthorsCreateServlet extends HttpServlet
+@WebServlet("/authors/edit")
+public class AuthorsEditServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		getServletContext().getRequestDispatcher("/jsp/AuthorsCreate.jsp").forward(request, response);
+		Author author = null;
+		try (Database db = new Database())
+		{
+			author = getAuthor(db, request);
+		} catch (Exception e) { }
+		
+		request.setAttribute("author", author);
+		getServletContext().getRequestDispatcher("/jsp/AuthorsEdit.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -27,16 +31,24 @@ public class AuthorsCreateServlet extends HttpServlet
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		
+		Author author = null;
 		try (Database db = new Database())
 		{
-			Author author = new Author();
+			author = getAuthor(db, request);
+			
 			author.setFirstName(firstName);
 			author.setLastName(lastName);
 			
 			db.getAuthors().updateOrCreate(author);
 			db.commit();
 		} catch (Exception e) { }
-		
+				
 		response.sendRedirect("../authors");
+	}
+	
+	private Author getAuthor(Database db, HttpServletRequest request)
+	{
+		int id = Integer.parseInt(request.getParameter("id"));
+		return db.getAuthors().read(id);
 	}
 }

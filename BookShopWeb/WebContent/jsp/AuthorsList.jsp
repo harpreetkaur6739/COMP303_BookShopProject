@@ -10,8 +10,9 @@ List<Author> authors = (List<Author>)request.getAttribute("authors");
 
 <t:genericpage>
 	<h1>Authors</h1>
-	
-	<table>
+	<a href="authors/create" class="btn btn-success">Create</a>
+	<hr />
+	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th>Last Name</th>
@@ -24,7 +25,12 @@ List<Author> authors = (List<Author>)request.getAttribute("authors");
 				<tr>
 					<td>${ a.getLastName() }</td>
 					<td>${ a.getFirstName() }</td>
-					<td>test</td>
+					<td>
+						<div class="btn-group">
+							<a href="authors/edit?id=${ a.getAuthorId() }" class="btn btn-primary">Edit</a>
+							<a href="authors/delete?id=${ a.getAuthorId() }" class="btn btn-danger">Delete</a>
+						</div>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>

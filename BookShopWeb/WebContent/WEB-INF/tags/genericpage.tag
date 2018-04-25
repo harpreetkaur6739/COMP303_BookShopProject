@@ -19,7 +19,13 @@
 			<div id="navbarSupportedContent" class="collapse navbar-collapse">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a href="#" class="nav-link">Home</a>
+						<a href="/BookShopWeb/" class="nav-link">Home</a>
+					</li>
+					<li class="nav-item">
+						<a href="/BookShopWeb/authors" class="nav-link">Authors</a>
+					</li>
+					<li class="nav-item">
+						<a href="/BookShopWeb/genres" class="nav-link">Genres</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav">
