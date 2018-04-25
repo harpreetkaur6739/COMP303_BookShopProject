@@ -21,7 +21,9 @@ public class AuthorsListServlet extends HttpServlet
 		try (Database db = new Database())
 		{
 			authors = db.getAuthors().list();
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		request.setAttribute("authors", authors);
 		getServletContext().getRequestDispatcher("/jsp/AuthorsList.jsp").forward(request, response);

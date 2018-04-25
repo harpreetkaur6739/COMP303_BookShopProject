@@ -13,7 +13,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="genres", schema="comp303project")
-
+@NamedQueries({	
+	@NamedQuery(name="Genre.All",
+		query="SELECT g FROM Genre g"),
+})
 public class Genre implements Serializable
 {
 	private Integer genreId;
@@ -42,6 +45,7 @@ public class Genre implements Serializable
 	}
 	
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getGenreId()
 	{
 		return this.genreId;

@@ -21,7 +21,9 @@ public class GenresListServlet extends HttpServlet
 		try (Database db = new Database())
 		{
 			genres = db.getGenres().list();
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		request.setAttribute("genres", genres);
 		getServletContext().getRequestDispatcher("/jsp/GenresList.jsp").forward(request, response);

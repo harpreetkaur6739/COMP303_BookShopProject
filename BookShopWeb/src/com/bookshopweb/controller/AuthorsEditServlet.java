@@ -20,7 +20,9 @@ public class AuthorsEditServlet extends HttpServlet
 		try (Database db = new Database())
 		{
 			author = getAuthor(db, request);
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		request.setAttribute("author", author);
 		getServletContext().getRequestDispatcher("/jsp/AuthorsEdit.jsp").forward(request, response);
@@ -28,20 +30,21 @@ public class AuthorsEditServlet extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
-		
-		Author author = null;
 		try (Database db = new Database())
 		{
-			author = getAuthor(db, request);
+			String firstName = request.getParameter("firstName");
+			String lastName = request.getParameter("lastName");
+			
+			Author author = getAuthor(db, request);
 			
 			author.setFirstName(firstName);
 			author.setLastName(lastName);
 			
 			db.getAuthors().updateOrCreate(author);
 			db.commit();
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 				
 		response.sendRedirect("../authors");
 	}

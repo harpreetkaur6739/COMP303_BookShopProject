@@ -8,11 +8,11 @@ import javax.persistence.Query;
 import com.bookshopweb.model.Author;
 import com.sun.mail.iap.ConnectionException;
 
-public class AuthorDAO
+public class AuthorsDAO
 {
 	private Database db;
 	
-	public AuthorDAO(Database db)
+	public AuthorsDAO(Database db)
 	{
 		this.db = db;
 	}

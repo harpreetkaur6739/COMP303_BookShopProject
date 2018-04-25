@@ -15,10 +15,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="books", schema="comp303project")
 @NamedQueries({	
-	@NamedQuery(name="Books.All",
+	@NamedQuery(name="Book.All",
 		query="SELECT b FROM Book b"),
 })
-
 public class Book implements Serializable
 {
 	private Integer bookId;

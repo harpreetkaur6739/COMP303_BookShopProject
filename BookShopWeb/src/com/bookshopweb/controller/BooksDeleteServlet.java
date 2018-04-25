@@ -6,46 +6,46 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.bookshopweb.dao.Database;
-import com.bookshopweb.model.Genre;
 
-@WebServlet("/genres/delete")
-public class GenresDeleteServlet extends HttpServlet
+import com.bookshopweb.dao.Database;
+import com.bookshopweb.model.Book;
+
+@WebServlet("/books/delete")
+public class BooksDeleteServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		Genre genre = null;
+		Book book = null;
 		try (Database db = new Database())
 		{
-			genre = getGenre(db, request);
+			book = getBook(db, request);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		request.setAttribute("genre", genre);
-		getServletContext().getRequestDispatcher("/jsp/GenresDelete.jsp").forward(request, response);
+		request.setAttribute("book", book);
+		getServletContext().getRequestDispatcher("/jsp/BooksDelete.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		Genre genre = null;
 		try (Database db = new Database())
 		{
-			genre = getGenre(db, request);
-			db.getGenres().delete(genre);
+			Book book = getBook(db, request);
+			db.getBooks().delete(book);
 			db.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 				
-		response.sendRedirect("../genres");
+		response.sendRedirect("../books");
 	}
 	
-	private Genre getGenre(Database db, HttpServletRequest request)
+	private Book getBook(Database db, HttpServletRequest request)
 	{
 		int id = Integer.parseInt(request.getParameter("id"));
-		return db.getGenres().read(id);
+		return db.getBooks().read(id);
 	}
 }

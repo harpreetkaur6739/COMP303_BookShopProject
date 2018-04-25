@@ -20,7 +20,9 @@ public class GenresEditServlet extends HttpServlet
 		try (Database db = new Database())
 		{
 			genre = getGenre(db, request);
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		request.setAttribute("genre", genre);
 		getServletContext().getRequestDispatcher("/jsp/GenresEdit.jsp").forward(request, response);
@@ -28,18 +30,19 @@ public class GenresEditServlet extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		String name = request.getParameter("name");
-		
-		Genre genre = null;
 		try (Database db = new Database())
 		{
-			genre = getGenre(db, request);
+			String name = request.getParameter("name");
+			
+			Genre genre = getGenre(db, request);
 			
 			genre.setName(name);
 			
 			db.getGenres().updateOrCreate(genre);
 			db.commit();
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 				
 		response.sendRedirect("../authors");
 	}

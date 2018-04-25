@@ -21,16 +21,18 @@ public class GenresCreateServlet extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		String name = request.getParameter("name");
-		
 		try (Database db = new Database())
 		{
+			String name = request.getParameter("name");
+			
 			Genre genre = new Genre();
 			genre.setName(name);
 			
 			db.getGenres().updateOrCreate(genre);
 			db.commit();
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		response.sendRedirect("../genres");
 	}

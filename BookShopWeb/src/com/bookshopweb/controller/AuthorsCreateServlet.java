@@ -24,18 +24,20 @@ public class AuthorsCreateServlet extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
-		
 		try (Database db = new Database())
 		{
+			String firstName = request.getParameter("firstName");
+			String lastName = request.getParameter("lastName");
+			
 			Author author = new Author();
 			author.setFirstName(firstName);
 			author.setLastName(lastName);
 			
 			db.getAuthors().updateOrCreate(author);
 			db.commit();
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		response.sendRedirect("../authors");
 	}

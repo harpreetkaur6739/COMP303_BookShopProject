@@ -21,7 +21,9 @@ public class AuthorsDeleteServlet extends HttpServlet
 		try (Database db = new Database())
 		{
 			author = getAuthor(db, request);
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		request.setAttribute("author", author);
 		getServletContext().getRequestDispatcher("/jsp/AuthorsDelete.jsp").forward(request, response);
@@ -35,7 +37,9 @@ public class AuthorsDeleteServlet extends HttpServlet
 			author = getAuthor(db, request);
 			db.getAuthors().delete(author);
 			db.commit();
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 				
 		response.sendRedirect("../authors");
 	}

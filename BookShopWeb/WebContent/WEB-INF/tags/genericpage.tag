@@ -22,6 +22,9 @@
 						<a href="/BookShopWeb/" class="nav-link">Home</a>
 					</li>
 					<li class="nav-item">
+						<a href="/BookShopWeb/books" class="nav-link">Books</a>
+					</li>
+					<li class="nav-item">
 						<a href="/BookShopWeb/authors" class="nav-link">Authors</a>
 					</li>
 					<li class="nav-item">
