@@ -4,6 +4,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+
+import com.bookshopweb.model.Author;
 import com.bookshopweb.model.Genre;
 import com.sun.mail.iap.ConnectionException;
 
@@ -21,6 +23,17 @@ public class GenresDAO
 		EntityManager em = this.db.getEntityManager();
 		
 		Query q = em.createNamedQuery("Genre.All");
+		List<Genre> list = q.getResultList();
+		
+		return list;
+	}
+	
+	public List<Genre> search(String query)
+	{
+		EntityManager em = this.db.getEntityManager();
+		
+		Query q = em.createNamedQuery("Genre.Search");
+		q.setParameter("query", "%" + query + "%");
 		List<Genre> list = q.getResultList();
 		
 		return list;

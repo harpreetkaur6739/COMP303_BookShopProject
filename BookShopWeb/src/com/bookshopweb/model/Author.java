@@ -16,6 +16,8 @@ import javax.persistence.*;
 @NamedQueries({	
 	@NamedQuery(name="Author.All",
 		query="SELECT a FROM Author a"),
+	@NamedQuery(name="Author.Search",
+		query="SELECT a FROM Author a WHERE a.firstName LIKE :query OR a.lastName LIKE :query OR CONCAT(a.firstName, a.lastName) LIKE :query OR CONCAT(a.lastName, a.firstName) LIKE :query"),
 })
 public class Author implements Serializable
 {

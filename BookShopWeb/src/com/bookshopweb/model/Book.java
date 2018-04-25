@@ -17,6 +17,8 @@ import javax.persistence.*;
 @NamedQueries({	
 	@NamedQuery(name="Book.All",
 		query="SELECT b FROM Book b"),
+	@NamedQuery(name="Book.Search",
+		query="SELECT b FROM Book b WHERE b.title LIKE :query"),
 })
 public class Book implements Serializable
 {

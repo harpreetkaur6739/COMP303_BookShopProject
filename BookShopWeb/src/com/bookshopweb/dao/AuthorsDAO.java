@@ -27,6 +27,17 @@ public class AuthorsDAO
 		return list;
 	}
 	
+	public List<Author> search(String query)
+	{
+		EntityManager em = this.db.getEntityManager();
+		
+		Query q = em.createNamedQuery("Author.Search");
+		q.setParameter("query", "%" + query + "%");
+		List<Author> list = q.getResultList();
+		
+		return list;
+	}
+	
 	public Author read(int authorId)
 	{
 		EntityManager em = this.db.getEntityManager();

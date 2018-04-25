@@ -27,6 +27,17 @@ public class BooksDAO
 		return list;
 	}
 	
+	public List<Book> search(String query)
+	{
+		EntityManager em = this.db.getEntityManager();
+		
+		Query q = em.createNamedQuery("Book.Search");
+		q.setParameter("query", "%" + query + "%");
+		List<Book> list = q.getResultList();
+		
+		return list;
+	}
+	
 	public Book read(int bookId)
 	{
 		EntityManager em = this.db.getEntityManager();

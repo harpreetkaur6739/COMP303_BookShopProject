@@ -5,6 +5,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <%
+String query = (String)request.getAttribute("query");
 List<Author> authors = (List<Author>)request.getAttribute("authors");
 %>
 
@@ -12,6 +13,14 @@ List<Author> authors = (List<Author>)request.getAttribute("authors");
 	<h1>Authors</h1>
 	<a href="authors/create" class="btn btn-success">Create</a>
 	<hr />
+	<form method="get" class="form-group">
+		<div class="input-group">
+			<input class="form-control" name="q" placeholder="Enter search query" type="text" value="${query}" />
+			<span class="input-group-append">
+				<button type="submit" class="btn btn-primary">Search</button>
+			</span>
+		</div>
+	</form>
 	<table class="table table-hover">
 		<thead>
 			<tr>

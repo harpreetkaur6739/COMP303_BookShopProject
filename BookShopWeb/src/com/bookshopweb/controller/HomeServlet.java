@@ -19,9 +19,6 @@ public class HomeServlet extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		//Get list of books
-		List<Book> authors = new BooksDAO().listAllBooks();
-		request.setAttribute("books", authors);
 		getServletContext().getRequestDispatcher("/jsp/Home.jsp").forward(request, response);
 	}
 }

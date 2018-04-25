@@ -16,6 +16,8 @@ import javax.persistence.*;
 @NamedQueries({	
 	@NamedQuery(name="Genre.All",
 		query="SELECT g FROM Genre g"),
+	@NamedQuery(name="Genre.Search",
+		query="SELECT g FROM Genre g WHERE g.name LIKE :query"),
 })
 public class Genre implements Serializable
 {

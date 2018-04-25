@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bookshopweb.dao.*;
+import com.bookshopweb.model.Author;
 import com.bookshopweb.model.Book;
 
 @WebServlet("/books")
@@ -17,14 +18,24 @@ public class BooksListServlet extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		String query = request.getParameter("q");
+		
 		List<Book> books = null;
 		try (Database db = new Database())
 		{
-			books = db.getBooks().list();
+			if (query != null && query.length() != 0)
+			{
+				books = db.getBooks().search(query);
+			}
+			else
+			{
+				books = db.getBooks().list();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
+		request.setAttribute("query", query);
 		request.setAttribute("books", books);
 		getServletContext().getRequestDispatcher("/jsp/BooksList.jsp").forward(request, response);
 	}

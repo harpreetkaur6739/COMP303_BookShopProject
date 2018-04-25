@@ -17,14 +17,24 @@ public class AuthorsListServlet extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		String query = request.getParameter("q");
+		
 		List<Author> authors = null;
 		try (Database db = new Database())
 		{
-			authors = db.getAuthors().list();
+			if (query != null && query.length() != 0)
+			{
+				authors = db.getAuthors().search(query);
+			}
+			else
+			{
+				authors = db.getAuthors().list();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		request.setAttribute("query", query);
 		request.setAttribute("authors", authors);
 		getServletContext().getRequestDispatcher("/jsp/AuthorsList.jsp").forward(request, response);
 	}
