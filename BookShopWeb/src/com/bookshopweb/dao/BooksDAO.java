@@ -9,6 +9,8 @@ import javax.persistence.Query;
 import com.bookshopweb.model.Author;
 import com.bookshopweb.model.Book;
 import com.bookshopweb.model.BookWithAuthor;
+import com.bookshopweb.model.BookWithGenre;
+import com.bookshopweb.model.Genre;
 
 public class BooksDAO
 {
@@ -61,6 +63,32 @@ public class BooksDAO
 			Author author = (Author)values[0];
 			Book book = (Book)values[1];
 			list.add(new BookWithAuthor(book, author));
+		}
+		
+		return list;
+	}
+	
+	public List<BookWithGenre> searchGenres(int bookId, String query)
+	{
+		String pattern = "%";
+		if (query != null && query.length() > 0)
+		{
+			pattern = "%" + query + "%";
+		}
+		
+		EntityManager em = this.db.getEntityManager();
+		
+		Query q = em.createNamedQuery("Book.SearchGenre");
+		q.setParameter("bookId", bookId);
+		q.setParameter("query", pattern);
+		List<Object[]> results = q.getResultList();
+		List<BookWithGenre> list = new ArrayList<BookWithGenre>();
+		
+		for (Object[] values : results)
+		{
+			Genre genre = (Genre)values[0];
+			Book book = (Book)values[1];
+			list.add(new BookWithGenre(book, genre));
 		}
 		
 		return list;
