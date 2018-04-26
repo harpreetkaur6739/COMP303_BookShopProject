@@ -74,13 +74,10 @@ CREATE TABLE `comp303project`.`bookgenres` (
 
 CREATE TABLE `comp303project`.`inventory` (
 	`inventoryId` INT NOT NULL AUTO_INCREMENT,
-    `bookId` INT NOT NULL,
     `quantity` INT NOT NULL,
     `price` DECIMAL(9,2) NOT NULL,
-    PRIMARY KEY (`inventoryId`),
-    CONSTRAINT `FK_Inventory_Book`
-    FOREIGN KEY (`bookId`)
-    REFERENCES `comp303project`.`books` (`bookId`)    
+    PRIMARY KEY (`inventoryId`)  
 );
 
-
+//Alter commands
+ALTER TABLE books ADD inventoryId INT NOT NULL;

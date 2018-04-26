@@ -39,6 +39,18 @@
 			</div>
 		</div>
 		<div class="form-group row">
+			<label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
+			<div class="col-sm-10">
+				<input id="quantity" name="quantity" type="number" placeholder="Enter Quantity" required class="form-control" />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="price" class="col-sm-2 col-form-label">Price per item</label>
+			<div class="col-sm-10">
+				<input id="price" name="price" type="number" placeholder="Enter Price per book" required class="form-control" />
+			</div>
+		</div>
+		<div class="form-group row">
 			<div class="offset-sm-2 col-sm-10">
 				<input type="submit" value="Create" class="btn btn-success" />
 			</div>

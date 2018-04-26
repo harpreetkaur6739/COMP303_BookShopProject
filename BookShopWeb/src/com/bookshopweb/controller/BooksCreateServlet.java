@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bookshopweb.dao.*;
 import com.bookshopweb.model.Book;
 import com.bookshopweb.model.Detail;
+import com.bookshopweb.model.Inventory;
 
 /**
  * Servlet implementation class BooksCreateServlet
@@ -36,6 +37,9 @@ public class BooksCreateServlet extends HttpServlet
 			String isbn = request.getParameter("isbn");
 			int rating = Integer.parseInt(request.getParameter("rating"));
 			String summary = request.getParameter("summary");
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
+			Float price = Float.parseFloat(request.getParameter("price"));
+			
 			Book book = new Book();
 			book.setTitle(title);
 			book.setPublishDate(new java.sql.Date(date.getTime())); // converting to SQL date
@@ -45,6 +49,12 @@ public class BooksCreateServlet extends HttpServlet
 			Detail detail = new Detail();
 			detail.setSummary(summary);
 			book.setDetail(detail);
+			
+			Inventory inventory = new Inventory();
+			inventory.setQuantity(quantity);
+			inventory.setPrice(price);
+			
+			book.setInventory(inventory);
 			
 			db.getBooks().updateOrCreate(book);
 			db.commit();

@@ -14,10 +14,6 @@ public class Inventory implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer inventoryId;
-	
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bookId")
-	private Book book;
 	private Integer quantity;
 	private Float price;
 	public Integer getInventoryId() {
@@ -25,12 +21,6 @@ public class Inventory implements Serializable{
 	}
 	public void setInventoryId(Integer inventoryId) {
 		this.inventoryId = inventoryId;
-	}
-	public Book getBook() {
-		return book;
-	}
-	public void setBook(Book book) {
-		this.book = book;
 	}
 	public Integer getQuantity() {
 		return quantity;

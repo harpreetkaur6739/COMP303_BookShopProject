@@ -40,7 +40,13 @@ Book book = (Book)request.getAttribute("book");
 		<div class="form-group row">
 			<label for="summary" class="col-sm-2 col-form-label">Summary</label>
 			<div class="col-sm-10">
-				<textarea id="summary" name="summary" placeholder="Enter Summary" value=${ book.getDetail().getSummary() } required class="form-control" ></textarea>
+				<textarea id="summary" name="summary" placeholder="Enter Summary" required class="form-control" >${ book.getDetail().getSummary() }</textarea>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="price" class="col-sm-2 col-form-label">Price</label>
+			<div class="col-sm-10">
+				<input id="price" name="price" type="number" placeholder="Enter Price" required class="form-control" value=${ book.getInventory().getPrice() } />
 			</div>
 		</div>
 		<div class="form-group row">

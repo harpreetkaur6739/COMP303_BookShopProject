@@ -49,6 +49,7 @@ public class BooksDAO
 	{
 		EntityManager em = this.db.getEntityManager();
 		em.persist(book.getDetail());
+		em.persist(book.getInventory());
 		em.persist(book);
 		
 		em.flush();

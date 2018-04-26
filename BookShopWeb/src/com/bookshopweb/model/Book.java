@@ -42,8 +42,7 @@ public class Book implements Serializable
 		this.detail = detail;
 	}
 
-	@OneToOne(mappedBy = "book", cascade = CascadeType.ALL, 
-            fetch = FetchType.LAZY, optional = false)
+	
 	private Inventory inventory;
 
 	@Access(AccessType.PROPERTY)
@@ -132,5 +131,14 @@ public class Book implements Serializable
 	public void setRating(Integer rating)
 	{
 		this.rating = rating;
+	}
+	@OneToOne
+	@JoinColumn(name="inventoryId")
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 }

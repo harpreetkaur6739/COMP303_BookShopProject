@@ -30,6 +30,9 @@
 					<li class="nav-item">
 						<a href="/BookShopWeb/genres" class="nav-link">Genres</a>
 					</li>
+					<li class="nav-item">
+						<a href="/BookShopWeb/inventory" class="nav-link">Inventory</a>
+					</li>
 				</ul>
 				<ul class="navbar-nav">
 					<li class="navbar-text mr-3">
