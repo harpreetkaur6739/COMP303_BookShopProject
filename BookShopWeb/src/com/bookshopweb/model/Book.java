@@ -19,6 +19,8 @@ import javax.persistence.*;
 		query="SELECT b FROM Book b"),
 	@NamedQuery(name="Book.Search",
 		query="SELECT b FROM Book b WHERE b.title LIKE :query"),
+	@NamedQuery(name="Book.SearchAuthor",
+		query="SELECT a, b FROM Author a LEFT OUTER JOIN a.books b WHERE b IS NULL OR b.bookId = :bookId AND (a.firstName LIKE :query OR a.lastName LIKE :query OR CONCAT(a.firstName, a.lastName) LIKE :query OR CONCAT(a.lastName, a.firstName) LIKE :query)"),
 })
 public class Book implements Serializable
 {

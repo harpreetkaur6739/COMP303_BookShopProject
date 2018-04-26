@@ -19,14 +19,13 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
-CREATE TABLE `comp303project`.`detail` (
+CREATE TABLE `comp303project`.`details` (
   `detailId` INT NOT NULL AUTO_INCREMENT,
   `summary` VARCHAR(1000) NOT NULL,
   PRIMARY KEY (`detailId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
-
 
 CREATE TABLE `comp303project`.`books` (
   `bookId` INT NOT NULL AUTO_INCREMENT,
@@ -35,7 +34,12 @@ CREATE TABLE `comp303project`.`books` (
   `isbn` VARCHAR(45) NOT NULL,
   `rating` INT NULL,
   `detailId` INT,
-  PRIMARY KEY (`bookId`))
+  PRIMARY KEY (`bookId`),
+  CONSTRAINT `FK_Books_Detail`
+    FOREIGN KEY (`detailId`)
+    REFERENCES `comp303project`.`details` (`detailId`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
