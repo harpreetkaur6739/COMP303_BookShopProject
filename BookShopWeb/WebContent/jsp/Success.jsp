@@ -10,5 +10,7 @@ String message = (String) request.getAttribute("message");
 
 <t:genericpage>
 	<h3>${ message  }</h3>
-	
+	<div class="btn-group">
+		<a href="shop" class="btn btn-primary">Continue browsing</a>
+	</div>
 </t:genericpage>

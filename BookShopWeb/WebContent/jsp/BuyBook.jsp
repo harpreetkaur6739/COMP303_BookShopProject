@@ -10,9 +10,9 @@ Book book = (Book)request.getAttribute("book");
 %>
 <t:genericpage>
 	<h1>Books</h1>
-	<form action="/success" method="POST">
+	<form action="success" method="POST">
 		<input type="hidden" name="id" value=${ book.getBookId() } />
-		<input type="hidden" name="qty" value="1" />
+		<input type="hidden" name="qty" value="1" />		
 		<table class="table table-responsive">
 			<thead>
 				<tr>
@@ -29,7 +29,7 @@ Book book = (Book)request.getAttribute("book");
 					<td>1</td>
 					<td>${book.getInventory().getPrice()}</td>
 					<td>2%</td>
-					<td> ${ book.getInventory().getPrice() + (0.02 * book.getInventory().getPrice()) }</td>
+					<td><input type="hidden" name="price" value=${ book.getInventory().getPrice() + (0.02 * book.getInventory().getPrice()) } /> ${ book.getInventory().getPrice() + (0.02 * book.getInventory().getPrice()) }</td>
 				</tr>
 			</tbody>
 		</table>
@@ -38,6 +38,7 @@ Book book = (Book)request.getAttribute("book");
 		<div>Select Payment Method:</div>
 			<div><input type="radio" id="paymentMethhod" name="paymentMethod" value="cash" >Cash on delivery</div>
 		</div>
+		<div><input type="submit" class="btn btn-primary" value="Checkout" /></div>
 	</form>
-	<div><input type="submit" class="btn btn-primary" value="Checkout" /></div>
+	
 </t:genericpage>

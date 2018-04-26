@@ -6,9 +6,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.bookshopweb.dao.*;
+import javax.servlet.http.HttpSession;
 
-@WebServlet("/success")
+import com.bookshopweb.dao.*;
+import com.bookshopweb.model.Transaction;
+
+@WebServlet("/books/success")
 public class ProcessTransactionServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
@@ -17,8 +20,17 @@ public class ProcessTransactionServlet extends HttpServlet
 	{
 		int bookId = Integer.parseInt(request.getParameter("id"));		
 		int qty = Integer.parseInt(request.getParameter("qty"));
+		float price = Float.parseFloat(request.getParameter("price"));
+		HttpSession httpSession = request.getSession();
+		String user = (String)httpSession.getAttribute("user");
 		try (Database db = new Database())
 		{
+			Transaction txn = new Transaction();
+			txn.setAmount(price);
+			txn.setUser(user);
+			txn.setBookId(bookId);
+			txn.setQuantity(qty);
+			db.getTransactions().updateOrCreate(txn);
 			db.getBooks().updateInventory(bookId, qty);
 			
 		} catch (Exception e) {

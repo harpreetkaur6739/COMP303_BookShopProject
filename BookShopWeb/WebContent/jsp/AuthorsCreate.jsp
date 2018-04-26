@@ -4,6 +4,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:genericpage>
+
 	<h1>Create Author</h1>
 	
 	<form method="post">

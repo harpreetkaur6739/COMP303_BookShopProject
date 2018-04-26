@@ -133,12 +133,8 @@ public class BooksDAO
 		EntityManager em = this.db.getEntityManager();
 		
 		Book book = em.find(Book.class, bookId);
-		
-		int quantity = book.getInventory().getQuantity() - qty;
-		book.getInventory().setQuantity(quantity);
-		
-		em.persist(book.getInventory());		
-		em.flush();
-		
+		int quty = book.getInventory().getQuantity();
+		book.getInventory().setQuantity(quty-qty);
+		em.getTransaction().commit();
 	}
 }
