@@ -2,6 +2,7 @@ package com.bookshopweb.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,6 +31,7 @@ public class BooksDetailServlet extends HttpServlet
 			{
 				book = db.getBooks().read(bookId);			
 
+				// record the view into the history table
 				java.util.Date now = new java.util.Date();
 			    java.sql.Timestamp historyDate = new java.sql.Timestamp(now.getTime());
 				
@@ -39,9 +41,16 @@ public class BooksDetailServlet extends HttpServlet
 				history.setIp(request.getRemoteAddr());
 				db.getHistory().create(history);
 				
+				// copy the lists because they are lazy loaded
+				ArrayList<Author> authors = new ArrayList<Author>(book.getAuthors());
+				Collections.sort(authors); // sort so the order isn't random
+				
+				ArrayList<Genre> genres = new ArrayList<Genre>(book.getGenres());
+				Collections.sort(genres);
+				
 				request.setAttribute("book", book);
-				request.setAttribute("authors", new ArrayList<Author>(book.getAuthors()));
-				request.setAttribute("genres", new ArrayList<Genre>(book.getGenres()));
+				request.setAttribute("authors", authors);
+				request.setAttribute("genres", genres);
 				
 				db.commit();
 				

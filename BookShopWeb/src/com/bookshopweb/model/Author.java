@@ -15,11 +15,11 @@ import javax.persistence.*;
 @Table(name="authors", schema="comp303project")
 @NamedQueries({	
 	@NamedQuery(name="Author.All",
-		query="SELECT a FROM Author a"),
+		query="SELECT a FROM Author a ORDER BY a.lastName"),
 	@NamedQuery(name="Author.Search",
-		query="SELECT a FROM Author a WHERE a.firstName LIKE :query OR a.lastName LIKE :query OR CONCAT(a.firstName, a.lastName) LIKE :query OR CONCAT(a.lastName, a.firstName) LIKE :query"),
+		query="SELECT a FROM Author a WHERE a.firstName LIKE :query OR a.lastName LIKE :query OR CONCAT(a.firstName, a.lastName) LIKE :query OR CONCAT(a.lastName, a.firstName) LIKE :query ORDER BY a.lastName"),
 })
-public class Author implements Serializable
+public class Author implements Serializable, Comparable<Author>
 {
 	private Integer authorId;
 	private String firstName;
@@ -77,5 +77,11 @@ public class Author implements Serializable
 	public void setLastName(String lastName)
 	{
 		this.lastName = lastName;
+	}
+
+	@Override
+	public int compareTo(Author o)
+	{
+		return this.lastName.compareTo(o.lastName);
 	}
 }

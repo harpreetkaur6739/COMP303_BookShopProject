@@ -15,11 +15,11 @@ import javax.persistence.*;
 @Table(name="genres", schema="comp303project")
 @NamedQueries({	
 	@NamedQuery(name="Genre.All",
-		query="SELECT g FROM Genre g"),
+		query="SELECT g FROM Genre g ORDER BY g.name"),
 	@NamedQuery(name="Genre.Search",
-		query="SELECT g FROM Genre g WHERE g.name LIKE :query"),
+		query="SELECT g FROM Genre g WHERE g.name LIKE :query ORDER BY g.name"),
 })
-public class Genre implements Serializable
+public class Genre implements Serializable, Comparable<Genre>
 {
 	private Integer genreId;
 	private String name;
@@ -66,5 +66,11 @@ public class Genre implements Serializable
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	@Override
+	public int compareTo(Genre o)
+	{
+		return this.name.compareTo(o.name);
 	}
 }
