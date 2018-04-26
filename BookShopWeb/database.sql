@@ -83,5 +83,5 @@ CREATE TABLE `comp303project`.`inventory` (
     PRIMARY KEY (`inventoryId`)  
 );
 
-//Alter commands
+/*Alter command*/
 ALTER TABLE books ADD inventoryId INT NOT NULL;
