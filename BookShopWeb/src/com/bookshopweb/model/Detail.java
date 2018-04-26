@@ -20,7 +20,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="detailss", schema="comp303project")
+@Table(name="details", schema="comp303project")
 
 public class Detail implements Serializable{
 
