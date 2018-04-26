@@ -85,3 +85,20 @@ CREATE TABLE `comp303project`.`inventory` (
 
 /*Alter command*/
 ALTER TABLE books ADD inventoryId INT NOT NULL;
+
+CREATE TABLE `comp303project`.`history` (
+  `historyId` INT NOT NULL AUTO_INCREMENT,
+  `bookId` INT NOT NULL,
+  `date` DATETIME NOT NULL,
+  `ip` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`historyId`),
+  INDEX `FK_History_Book_idx` (`bookId` ASC),
+  CONSTRAINT `FK_History_Book`
+    FOREIGN KEY (`bookId`)
+    REFERENCES `comp303project`.`books` (`bookId`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
+

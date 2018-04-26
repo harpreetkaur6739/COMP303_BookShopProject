@@ -10,6 +10,7 @@ public class Database implements AutoCloseable
 	private AuthorsDAO authors;
 	private GenresDAO genres;
 	private BooksDAO books;
+	private HistoryDAO history;
 	
 	public Database()
 	{
@@ -18,6 +19,7 @@ public class Database implements AutoCloseable
 		this.authors = new AuthorsDAO(this);
 		this.genres = new GenresDAO(this);
 		this.books = new BooksDAO(this);
+		this.history = new HistoryDAO(this);
 		
 		this.et.begin();
 	}
@@ -35,6 +37,11 @@ public class Database implements AutoCloseable
 	public BooksDAO getBooks()
 	{
 		return this.books;
+	}
+	
+	public HistoryDAO getHistory()
+	{
+		return this.history;
 	}
 	
 	public EntityManager getEntityManager()
