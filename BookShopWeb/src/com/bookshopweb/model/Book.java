@@ -23,6 +23,9 @@ import javax.persistence.*;
 		query="SELECT a, b FROM Author a LEFT OUTER JOIN a.books b WHERE (b IS NULL OR b.bookId = :bookId) AND (a.firstName LIKE :query OR a.lastName LIKE :query OR CONCAT(a.firstName, a.lastName) LIKE :query OR CONCAT(a.lastName, a.firstName) LIKE :query)"),
 	@NamedQuery(name="Book.SearchGenre",
 		query="SELECT g, b FROM Genre g LEFT OUTER JOIN g.books b WHERE (b IS NULL OR b.bookId = :bookId) AND (g.name LIKE :query)"),
+	@NamedQuery(name="Book.SearchAvailable",
+	query="SELECT b FROM Book b JOIN b.inventory i WHERE i.quantity > 0"),
+
 })
 public class Book implements Serializable
 {
@@ -48,6 +51,15 @@ public class Book implements Serializable
 
 	
 	private Inventory inventory;
+	@OneToOne
+	@JoinColumn(name="inventoryId")
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
 
 	@Access(AccessType.PROPERTY)
 	@ManyToMany
@@ -136,13 +148,6 @@ public class Book implements Serializable
 	{
 		this.rating = rating;
 	}
-	@OneToOne
-	@JoinColumn(name="inventoryId")
-	public Inventory getInventory() {
-		return inventory;
-	}
-
-	public void setInventory(Inventory inventory) {
-		this.inventory = inventory;
-	}
+	
+	
 }

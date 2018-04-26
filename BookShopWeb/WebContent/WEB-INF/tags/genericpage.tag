@@ -33,6 +33,9 @@
 					<li class="nav-item">
 						<a href="/BookShopWeb/inventory" class="nav-link">Inventory</a>
 					</li>
+					<li class="nav-item">
+						<a href="/BookShopWeb/books/shop" class="nav-link">Shop Books</a>
+					</li>
 				</ul>
 				<ul class="navbar-nav">
 					<li class="navbar-text mr-3">
