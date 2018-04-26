@@ -33,7 +33,7 @@ List<Book> books = (List<Book>)request.getAttribute("books");
 			<%-- this is a loop --%>
 			<c:forEach var="b" items="${ books }">
 				<tr>
-					<td>${ b.getTitle() }</td>
+					<td><a href="books/detail?id=${ b.getBookId()}">${ b.getTitle() }</a></td>
 					<td>
 						<fmt:formatDate value="${b.getPublishDate()}" pattern="dd/MM/yyyy" />
 					</td>

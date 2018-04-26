@@ -7,10 +7,12 @@
 		<class>com.bookshopweb.model.Genre</class>
 		<class>com.bookshopweb.model.Book</class>
 		<class>com.bookshopweb.model.Inventory</class>
+		<class>com.bookshopweb.model.Detail</class>
 		<!--  Add Classes here -->
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="jboss.entity.manager.factory.jndi.name" value="java:/comp303project_emf" />
+			
 		</properties>
 	</persistence-unit>
 </persistence>

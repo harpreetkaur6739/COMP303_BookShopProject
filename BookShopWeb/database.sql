@@ -19,12 +19,22 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
+CREATE TABLE `comp303project`.`detail` (
+  `detailId` INT NOT NULL AUTO_INCREMENT,
+  `summary` VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (`detailId`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
+
+
 CREATE TABLE `comp303project`.`books` (
   `bookId` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NOT NULL,
   `publishDate` DATE NOT NULL,
   `isbn` VARCHAR(45) NOT NULL,
   `rating` INT NULL,
+  `detailId` INT,
   PRIMARY KEY (`bookId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -72,3 +82,5 @@ CREATE TABLE `comp303project`.`inventory` (
     FOREIGN KEY (`bookId`)
     REFERENCES `comp303project`.`books` (`bookId`)    
 );
+
+

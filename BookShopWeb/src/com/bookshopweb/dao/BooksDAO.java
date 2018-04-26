@@ -48,7 +48,9 @@ public class BooksDAO
 	public Book updateOrCreate(Book book)
 	{
 		EntityManager em = this.db.getEntityManager();
+		em.persist(book.getDetail());
 		em.persist(book);
+		
 		em.flush();
 		
 		return book;

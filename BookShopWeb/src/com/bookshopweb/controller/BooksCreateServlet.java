@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bookshopweb.dao.*;
 import com.bookshopweb.model.Book;
+import com.bookshopweb.model.Detail;
 
 /**
  * Servlet implementation class BooksCreateServlet
@@ -34,12 +35,16 @@ public class BooksCreateServlet extends HttpServlet
 			Date date = dateFmt.parse(request.getParameter("publishDate"));
 			String isbn = request.getParameter("isbn");
 			int rating = Integer.parseInt(request.getParameter("rating"));
-			
+			String summary = request.getParameter("summary");
 			Book book = new Book();
 			book.setTitle(title);
 			book.setPublishDate(new java.sql.Date(date.getTime())); // converting to SQL date
 			book.setIsbn(isbn);
 			book.setRating(rating);
+			
+			Detail detail = new Detail();
+			detail.setSummary(summary);
+			book.setDetail(detail);
 			
 			db.getBooks().updateOrCreate(book);
 			db.commit();

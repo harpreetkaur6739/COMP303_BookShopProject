@@ -30,6 +30,18 @@ public class Book implements Serializable
 	private Set<Author> authors;
 	private Set<Genre> genres;
 	
+	private Detail detail;
+	
+	@OneToOne
+	@JoinColumn(name="detailId")
+	public Detail getDetail() {
+		return detail;
+	}
+
+	public void setDetail(Detail detail) {
+		this.detail = detail;
+	}
+
 	@OneToOne(mappedBy = "book", cascade = CascadeType.ALL, 
             fetch = FetchType.LAZY, optional = false)
 	private Inventory inventory;
