@@ -39,6 +39,7 @@ List<BookWithAuthor> bookWithAuthors = (List<BookWithAuthor>)request.getAttribut
 						<div class="btn-group">
 							<form method="post">
 								<input type="hidden" name="bId" value="${bookId}" />
+								<input type="hidden" name="aId" value="${ba.author.getAuthorId()}" />
 								<c:choose>
 									<c:when test="${ba.isAdded()}">
 										<input type="hidden" name="op" value="remove" />

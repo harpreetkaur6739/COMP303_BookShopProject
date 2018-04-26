@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bookshopweb.dao.Database;
+import com.bookshopweb.model.Author;
+import com.bookshopweb.model.Book;
 import com.bookshopweb.model.BookWithAuthor;
 
 @WebServlet("/books/authors")
@@ -40,6 +42,34 @@ public class BooksAuthorsServlet extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		doGet(request, response);
+		String bookIdStr = request.getParameter("bId");
+		String authorIdStr = request.getParameter("aId");
+		String operation = request.getParameter("op");
+		
+		try (Database db = new Database())
+		{
+			int bookId = Integer.parseInt(bookIdStr);
+			int authorId = Integer.parseInt(authorIdStr);
+			
+			Book book = db.getBooks().read(bookId);
+			Author author = db.getAuthors().read(authorId);
+			
+			if (operation.equals("add"))
+			{
+				// add the relationship
+				book.getAuthors().add(author);
+			}
+			else if (operation.equals("remove"))
+			{
+				// remove relationship
+				book.getAuthors().remove(author);
+			}
+			
+			db.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect("./authors?bId=" + bookIdStr);
 	}
 }

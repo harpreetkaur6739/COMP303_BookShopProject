@@ -42,11 +42,17 @@ public class BooksDAO
 	
 	public List<BookWithAuthor> searchAuthors(int bookId, String query)
 	{
+		String pattern = "%";
+		if (query != null && query.length() > 0)
+		{
+			pattern = "%" + query + "%";
+		}
+		
 		EntityManager em = this.db.getEntityManager();
 		
 		Query q = em.createNamedQuery("Book.SearchAuthor");
 		q.setParameter("bookId", bookId);
-		q.setParameter("query", "%" + query + "%");
+		q.setParameter("query", pattern);
 		List<Object[]> results = q.getResultList();
 		List<BookWithAuthor> list = new ArrayList<BookWithAuthor>();
 		
