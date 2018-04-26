@@ -59,5 +59,7 @@ public class Database implements AutoCloseable
 		{
 			this.et.rollback();
 		}
+		
+		this.em.close();
 	}
 }
