@@ -1,5 +1,6 @@
 package com.bookshopweb.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,6 +8,7 @@ import javax.persistence.Query;
 
 import com.bookshopweb.model.Author;
 import com.bookshopweb.model.Book;
+import com.bookshopweb.model.BookWithAuthor;
 
 public class BooksDAO
 {
@@ -34,6 +36,26 @@ public class BooksDAO
 		Query q = em.createNamedQuery("Book.Search");
 		q.setParameter("query", "%" + query + "%");
 		List<Book> list = q.getResultList();
+		
+		return list;
+	}
+	
+	public List<BookWithAuthor> searchAuthors(int bookId, String query)
+	{
+		EntityManager em = this.db.getEntityManager();
+		
+		Query q = em.createNamedQuery("Book.SearchAuthor");
+		q.setParameter("bookId", bookId);
+		q.setParameter("query", "%" + query + "%");
+		List<Object[]> results = q.getResultList();
+		List<BookWithAuthor> list = new ArrayList<BookWithAuthor>();
+		
+		for (Object[] values : results)
+		{
+			Author author = (Author)values[0];
+			Book book = (Book)values[1];
+			list.add(new BookWithAuthor(book, author));
+		}
 		
 		return list;
 	}
