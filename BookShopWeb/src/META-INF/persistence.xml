@@ -8,12 +8,11 @@
 		<class>com.bookshopweb.model.Book</class>
 		<class>com.bookshopweb.model.Inventory</class>
 		<class>com.bookshopweb.model.Detail</class>
-<<<<<<< HEAD
+
 		<class>com.bookshopweb.model.History</class>
-=======
+
 		<class>com.bookshopweb.model.User</class>
 		<class>com.bookshopweb.model.Transaction</class>
->>>>>>> buybook
 		<!--  Add Classes here -->
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

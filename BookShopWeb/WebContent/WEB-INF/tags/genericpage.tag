@@ -17,27 +17,7 @@
 			<a href="#" class="navbar-brand">Book Shop</a>
 			<button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" class="navbar-toggler"></button>
 			<div id="navbarSupportedContent" class="collapse navbar-collapse">
-<<<<<<< HEAD
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item">
-						<a href="/BookShopWeb/" class="nav-link">Home</a>
-					</li>
-					<li class="nav-item">
-						<a href="/BookShopWeb/books" class="nav-link">Books</a>
-					</li>
-					<li class="nav-item">
-						<a href="/BookShopWeb/authors" class="nav-link">Authors</a>
-					</li>
-					<li class="nav-item">
-						<a href="/BookShopWeb/genres" class="nav-link">Genres</a>
-					</li>
-					<li class="nav-item">
-						<a href="/BookShopWeb/inventory" class="nav-link">Inventory</a>
-					</li>
-					<li class="nav-item">
-						<a href="/BookShopWeb/history" class="nav-link">History</a>
-					</li>
-=======
+
 				<%
 				  if (session != null && session.getAttribute("user") != null)
 				  {
@@ -70,10 +50,12 @@
 							<a href="/BookShopWeb/inventory" class="nav-link">Inventory</a>
 						</li>
 						<li class="nav-item">
+						<a href="/BookShopWeb/history" class="nav-link">History</a>
+					</li>
+						<li class="nav-item">
 							<a href="/BookShopWeb/transactionList" class="nav-link">Transactions</a>
 						</li>
 					
->>>>>>> buybook
 				</ul>
 				
 				<%

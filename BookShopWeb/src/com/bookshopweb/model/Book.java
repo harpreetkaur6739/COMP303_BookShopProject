@@ -22,14 +22,11 @@ import javax.persistence.*;
 	@NamedQuery(name="Book.SearchAuthor",
 		query="SELECT a, b FROM Author a LEFT OUTER JOIN a.books b WHERE (b IS NULL OR b.bookId = :bookId) AND (a.firstName LIKE :query OR a.lastName LIKE :query OR CONCAT(a.firstName, a.lastName) LIKE :query OR CONCAT(a.lastName, a.firstName) LIKE :query) ORDER BY b.title"),
 	@NamedQuery(name="Book.SearchGenre",
-<<<<<<< HEAD
 		query="SELECT g, b FROM Genre g LEFT OUTER JOIN g.books b WHERE (b IS NULL OR b.bookId = :bookId) AND (g.name LIKE :query) ORDER BY b.title"),
-=======
-		query="SELECT g, b FROM Genre g LEFT OUTER JOIN g.books b WHERE (b IS NULL OR b.bookId = :bookId) AND (g.name LIKE :query)"),
 	@NamedQuery(name="Book.SearchAvailable",
 	query="SELECT b FROM Book b JOIN b.inventory i WHERE i.quantity > 0"),
 
->>>>>>> buybook
+
 })
 public class Book implements Serializable
 {
