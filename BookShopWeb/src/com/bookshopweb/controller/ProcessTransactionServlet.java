@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.bookshopweb.dao.*;
+import com.bookshopweb.model.Book;
 import com.bookshopweb.model.Transaction;
 
 @WebServlet("/books/success")
@@ -28,8 +29,11 @@ public class ProcessTransactionServlet extends HttpServlet
 			Transaction txn = new Transaction();
 			txn.setAmount(price);
 			txn.setUser(user);
-			txn.setBookId(bookId);
+			
+			Book book = db.getBooks().read(bookId);
+			txn.setBook(book);
 			txn.setQuantity(qty);
+			txn.setDate(new java.util.Date());
 			db.getTransactions().updateOrCreate(txn);
 			db.getBooks().updateInventory(bookId, qty);
 			

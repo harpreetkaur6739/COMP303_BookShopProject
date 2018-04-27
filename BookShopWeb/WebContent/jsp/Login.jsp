@@ -30,6 +30,7 @@
 		</table>
 		<div><input type="submit" class="btn btn-primary" value="Login" /></div>
 		</form>	
+		<div>No Account? <a href="register" >Create Here</a></div>
 	</div>
 
 </t:genericpage>

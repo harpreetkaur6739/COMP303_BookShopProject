@@ -24,44 +24,54 @@ public class BooksCreateServlet extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		getServletContext().getRequestDispatcher("/jsp/BooksCreate.jsp").forward(request, response);
+		if(request.getSession() != null && request.getSession().getAttribute("user") != null) {
+			getServletContext().getRequestDispatcher("/jsp/BooksCreate.jsp").forward(request, response);
+		}else {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		try (Database db = new Database())
-		{
-			String title = request.getParameter("title");
-			SimpleDateFormat dateFmt = new SimpleDateFormat("dd/MM/yyyy");
-			Date date = dateFmt.parse(request.getParameter("publishDate"));
-			String isbn = request.getParameter("isbn");
-			int rating = Integer.parseInt(request.getParameter("rating"));
-			String summary = request.getParameter("summary");
-			int quantity = Integer.parseInt(request.getParameter("quantity"));
-			Float price = Float.parseFloat(request.getParameter("price"));
+		if(request.getSession() != null) {
+			try (Database db = new Database())
+			{
+				String title = request.getParameter("title");
+				SimpleDateFormat dateFmt = new SimpleDateFormat("dd/MM/yyyy");
+				Date date = dateFmt.parse(request.getParameter("publishDate"));
+				String isbn = request.getParameter("isbn");
+				int rating = Integer.parseInt(request.getParameter("rating"));
+				String summary = request.getParameter("summary");
+				int quantity = Integer.parseInt(request.getParameter("quantity"));
+				Float price = Float.parseFloat(request.getParameter("price"));
+				
+				Book book = new Book();
+				book.setTitle(title);
+				book.setPublishDate(new java.sql.Date(date.getTime())); // converting to SQL date
+				book.setIsbn(isbn);
+				book.setRating(rating);
+				
+				Detail detail = new Detail();
+				detail.setSummary(summary);
+				book.setDetail(detail);
+				
+				Inventory inventory = new Inventory();
+				inventory.setQuantity(quantity);
+				inventory.setPrice(price);
+				
+				book.setInventory(inventory);
+				
+				db.getBooks().updateOrCreate(book);
+				db.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
-			Book book = new Book();
-			book.setTitle(title);
-			book.setPublishDate(new java.sql.Date(date.getTime())); // converting to SQL date
-			book.setIsbn(isbn);
-			book.setRating(rating);
-			
-			Detail detail = new Detail();
-			detail.setSummary(summary);
-			book.setDetail(detail);
-			
-			Inventory inventory = new Inventory();
-			inventory.setQuantity(quantity);
-			inventory.setPrice(price);
-			
-			book.setInventory(inventory);
-			
-			db.getBooks().updateOrCreate(book);
-			db.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
+			response.sendRedirect("../books");
+		}else {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 		}
 		
-		response.sendRedirect("../books");
 	}
 }

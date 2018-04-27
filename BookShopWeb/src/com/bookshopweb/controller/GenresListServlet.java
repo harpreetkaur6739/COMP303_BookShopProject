@@ -18,25 +18,30 @@ public class GenresListServlet extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		String query = request.getParameter("q");
-		
-		List<Genre> genres = null;
-		try (Database db = new Database())
-		{
-			if (query != null && query.length() != 0)
+		if(request.getSession() != null && request.getSession().getAttribute("user") != null) {
+			String query = request.getParameter("q");
+			
+			List<Genre> genres = null;
+			try (Database db = new Database())
 			{
-				genres = db.getGenres().search(query);
+				if (query != null && query.length() != 0)
+				{
+					genres = db.getGenres().search(query);
+				}
+				else
+				{
+					genres = db.getGenres().list();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			else
-			{
-				genres = db.getGenres().list();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 
-		request.setAttribute("query", query);
-		request.setAttribute("genres", genres);
-		getServletContext().getRequestDispatcher("/jsp/GenresList.jsp").forward(request, response);
+			request.setAttribute("query", query);
+			request.setAttribute("genres", genres);
+			getServletContext().getRequestDispatcher("/jsp/GenresList.jsp").forward(request, response);
+		}else {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}
+		
 	}
 }

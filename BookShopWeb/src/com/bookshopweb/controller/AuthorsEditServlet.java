@@ -16,16 +16,21 @@ public class AuthorsEditServlet extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		Author author = null;
-		try (Database db = new Database())
-		{
-			author = getAuthor(db, request);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(request.getSession() != null && request.getSession().getAttribute("user") != null) {
+			Author author = null;
+			try (Database db = new Database())
+			{
+				author = getAuthor(db, request);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			request.setAttribute("author", author);
+			getServletContext().getRequestDispatcher("/jsp/AuthorsEdit.jsp").forward(request, response);
+		}else {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 		}
 		
-		request.setAttribute("author", author);
-		getServletContext().getRequestDispatcher("/jsp/AuthorsEdit.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

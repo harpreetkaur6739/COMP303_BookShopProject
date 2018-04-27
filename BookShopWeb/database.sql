@@ -87,8 +87,9 @@ CREATE TABLE transaction(
  transactionId INT NOT NULL AUTO_INCREMENT,
  bookId INT NOT NULL,
  quantity INT,
- price FLOAT,
+ amount FLOAT,
  user VARCHAR(20),
+ date Date,
  PRIMARY KEY(transactionId)
 );
 

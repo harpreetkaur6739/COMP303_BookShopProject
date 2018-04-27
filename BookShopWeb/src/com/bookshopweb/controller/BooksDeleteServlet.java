@@ -17,30 +17,38 @@ public class BooksDeleteServlet extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		Book book = null;
-		try (Database db = new Database())
-		{
-			book = getBook(db, request);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(request.getSession() != null && request.getSession().getAttribute("user") != null) {
+			Book book = null;
+			try (Database db = new Database())
+			{
+				book = getBook(db, request);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			request.setAttribute("book", book);
+			getServletContext().getRequestDispatcher("/jsp/BooksDelete.jsp").forward(request, response);
+		}else {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 		}
 		
-		request.setAttribute("book", book);
-		getServletContext().getRequestDispatcher("/jsp/BooksDelete.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		try (Database db = new Database())
-		{
-			Book book = getBook(db, request);
-			db.getBooks().delete(book);
-			db.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(request.getSession() != null) {
+			try (Database db = new Database())
+			{
+				Book book = getBook(db, request);
+				db.getBooks().delete(book);
+				db.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+					
+			response.sendRedirect("../books");
 		}
-				
-		response.sendRedirect("../books");
+		
 	}
 	
 	private Book getBook(Database db, HttpServletRequest request)

@@ -28,6 +28,9 @@
 						<li class="nav-item">
 							<a href="/BookShopWeb/books/shop" class="nav-link">Shop Books</a>
 						</li>
+						<li class="nav-item">
+							<a href="/BookShopWeb/transactions" class="nav-link">View Transactions</a>
+						</li>
 					</ul>
 					<%}else if(session.getAttribute("role").equals("admin")){
 						
@@ -44,6 +47,9 @@
 						</li>
 						<li class="nav-item">
 							<a href="/BookShopWeb/inventory" class="nav-link">Inventory</a>
+						</li>
+						<li class="nav-item">
+							<a href="/BookShopWeb/transactionList" class="nav-link">Transactions</a>
 						</li>
 					
 				</ul>

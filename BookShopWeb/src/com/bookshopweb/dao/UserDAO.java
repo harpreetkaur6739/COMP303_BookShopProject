@@ -30,4 +30,13 @@ public class UserDAO {
 	
 		return userResult;
 	}
+	
+	public User create(User user) {
+		EntityManager em = this.db.getEntityManager();
+		em.persist(user);
+		em.flush();
+		em.getTransaction().commit();
+		
+		return user;
+	}
 }
