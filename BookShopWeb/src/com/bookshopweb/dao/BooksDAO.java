@@ -118,4 +118,23 @@ public class BooksDAO
 		EntityManager em = this.db.getEntityManager();
 		em.remove(book);
 	}
+	
+	public List<Book> searchAvailableBooks(){
+		List<Book> books = null;
+		EntityManager em = this.db.getEntityManager();
+		
+		Query q = em.createNamedQuery("Book.SearchAvailable");
+		books = q.getResultList();
+		return books;
+	}
+	
+	public void updateInventory(int bookId, int qty) {
+		
+		EntityManager em = this.db.getEntityManager();
+		
+		Book book = em.find(Book.class, bookId);
+		int quty = book.getInventory().getQuantity();
+		book.getInventory().setQuantity(quty-qty);
+		em.getTransaction().commit();
+	}
 }

@@ -19,7 +19,12 @@ public class AuthorsCreateServlet extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		getServletContext().getRequestDispatcher("/jsp/AuthorsCreate.jsp").forward(request, response);
+		if(request.getSession() != null && request.getSession().getAttribute("user") != null) {
+			getServletContext().getRequestDispatcher("/jsp/AuthorsCreate.jsp").forward(request, response);
+		}			
+		else {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

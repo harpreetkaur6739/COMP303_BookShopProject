@@ -18,25 +18,30 @@ public class BooksListServlet extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		String query = request.getParameter("q");
-		
-		List<Book> books = null;
-		try (Database db = new Database())
-		{
-			if (query != null && query.length() != 0)
+		if(request.getSession() != null && request.getSession().getAttribute("user") != null) {
+			String query = request.getParameter("q");
+			
+			List<Book> books = null;
+			try (Database db = new Database())
 			{
-				books = db.getBooks().search(query);
+				if (query != null && query.length() != 0)
+				{
+					books = db.getBooks().search(query);
+				}
+				else
+				{
+					books = db.getBooks().list();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			else
-			{
-				books = db.getBooks().list();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 
-		request.setAttribute("query", query);
-		request.setAttribute("books", books);
-		getServletContext().getRequestDispatcher("/jsp/BooksList.jsp").forward(request, response);
+			request.setAttribute("query", query);
+			request.setAttribute("books", books);
+			getServletContext().getRequestDispatcher("/jsp/BooksList.jsp").forward(request, response);
+		}else {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}
+		
 	}
 }

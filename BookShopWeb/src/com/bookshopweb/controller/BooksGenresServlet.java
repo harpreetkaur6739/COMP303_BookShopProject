@@ -21,23 +21,28 @@ public class BooksGenresServlet extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		String bookIdStr = request.getParameter("bId");
-		String query = request.getParameter("q");
-		
-		List<BookWithGenre> bookGenres = null;
-		try (Database db = new Database())
-		{
-			int bookId = Integer.parseInt(bookIdStr);
+		if(request.getSession() != null && request.getSession().getAttribute("user") != null) {
+			String bookIdStr = request.getParameter("bId");
+			String query = request.getParameter("q");
 			
-			bookGenres = db.getBooks().searchGenres(bookId, query);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			List<BookWithGenre> bookGenres = null;
+			try (Database db = new Database())
+			{
+				int bookId = Integer.parseInt(bookIdStr);
+				
+				bookGenres = db.getBooks().searchGenres(bookId, query);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-		request.setAttribute("bookId", bookIdStr);
-		request.setAttribute("bookWithGenres", bookGenres);
-		request.setAttribute("query", query);
-		getServletContext().getRequestDispatcher("/jsp/BooksGenresList.jsp").forward(request, response);
+			request.setAttribute("bookId", bookIdStr);
+			request.setAttribute("bookWithGenres", bookGenres);
+			request.setAttribute("query", query);
+			getServletContext().getRequestDispatcher("/jsp/BooksGenresList.jsp").forward(request, response);
+		}else {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

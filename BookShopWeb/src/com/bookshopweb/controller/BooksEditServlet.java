@@ -19,42 +19,50 @@ public class BooksEditServlet extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		Book book = null;
-		try (Database db = new Database())
-		{
-			book = getBook(db, request);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(request.getSession() != null && request.getSession().getAttribute("user") != null) {
+			Book book = null;
+			try (Database db = new Database())
+			{
+				book = getBook(db, request);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			request.setAttribute("book", book);
+			getServletContext().getRequestDispatcher("/jsp/BooksEdit.jsp").forward(request, response);
 		}
 		
-		request.setAttribute("book", book);
-		getServletContext().getRequestDispatcher("/jsp/BooksEdit.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		try (Database db = new Database())
-		{
-			String title = request.getParameter("title");
-			SimpleDateFormat dateFmt = new SimpleDateFormat("dd/MM/yyyy");
-			Date date = dateFmt.parse(request.getParameter("publishDate"));
-			String isbn = request.getParameter("isbn");
-			int rating = Integer.parseInt(request.getParameter("rating"));
-			
-			Book book = getBook(db, request);
-			
-			book.setTitle(title);
-			book.setPublishDate(new java.sql.Date(date.getTime())); // convert to SQL date
-			book.setIsbn(isbn);
-			book.setRating(rating);
-			
-			db.getBooks().updateOrCreate(book);
-			db.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		if(request.getSession() != null) {
+			try (Database db = new Database())
+			{
+				String title = request.getParameter("title");
+				SimpleDateFormat dateFmt = new SimpleDateFormat("dd/MM/yyyy");
+				Date date = dateFmt.parse(request.getParameter("publishDate"));
+				String isbn = request.getParameter("isbn");
+				int rating = Integer.parseInt(request.getParameter("rating"));
 				
-		response.sendRedirect("../books");
+				Book book = getBook(db, request);
+				
+				book.setTitle(title);
+				book.setPublishDate(new java.sql.Date(date.getTime())); // convert to SQL date
+				book.setIsbn(isbn);
+				book.setRating(rating);
+				
+				db.getBooks().updateOrCreate(book);
+				db.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+					
+			response.sendRedirect("../books");
+		}else {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}
+		
 	}
 	
 	private Book getBook(Database db, HttpServletRequest request)

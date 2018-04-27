@@ -83,6 +83,24 @@ CREATE TABLE `comp303project`.`inventory` (
     PRIMARY KEY (`inventoryId`)  
 );
 
+CREATE TABLE transaction(
+ transactionId INT NOT NULL AUTO_INCREMENT,
+ bookId INT NOT NULL,
+ quantity INT,
+ amount FLOAT,
+ user VARCHAR(20),
+ date DateTime,
+ PRIMARY KEY(transactionId)
+);
+
+CREATE TABLE user(
+id INT NOT NULL AUTO_INCREMENT,
+userName VARCHAR(20),
+password VARCHAR(20),
+role VARCHAR(10),
+PRIMARY KEY(id)
+
+);
 /*Alter command*/
 ALTER TABLE books ADD inventoryId INT NOT NULL;
 
