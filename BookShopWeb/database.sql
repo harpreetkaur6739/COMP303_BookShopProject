@@ -89,7 +89,7 @@ CREATE TABLE transaction(
  quantity INT,
  amount FLOAT,
  user VARCHAR(20),
- date Date,
+ date DateTime,
  PRIMARY KEY(transactionId)
 );
 

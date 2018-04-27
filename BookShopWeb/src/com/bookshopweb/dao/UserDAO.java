@@ -1,5 +1,7 @@
 package com.bookshopweb.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -22,9 +24,10 @@ public class UserDAO {
 		q.setParameter("user", username);
 		q.setParameter("pwd", password);
 		User userResult = null;
-		if(q.getResultList()!=null) {
+		List<User> user =( List<User>) q.getResultList();
+		if(user!=null && !user.isEmpty()) {
 			userResult = new User();
-			userResult = (User)q.getResultList().get(0);
+			userResult = user.get(0);
 		}
 		
 	
